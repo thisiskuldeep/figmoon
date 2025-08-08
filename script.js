@@ -37,11 +37,112 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialize with default color palette
+    // Initialize with random colors
+    setRandomColors();
     generateColorPalette();
 });
 
 // Color utility functions
+function generateRandomColor() {
+    // Generate a random hue (0-360) and saturation (30-80%), but fixed 50% lightness
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 30 + Math.floor(Math.random() * 50); // 30-80% saturation
+    const lightness = 50; // Fixed 50% lightness for consistent palettes
+    
+    return hslToHex(hue, saturation, lightness);
+}
+
+function hexToHsl(hex) {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return null;
+    
+    const r = rgb.r / 255;
+    const g = rgb.g / 255;
+    const b = rgb.b / 255;
+    
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    
+    if (max === min) {
+        h = s = 0; // achromatic
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    
+    return { h: h * 360, s: s * 100, l: l * 100 };
+}
+
+function hslToHex(h, s, l) {
+    h /= 360;
+    s /= 100;
+    l /= 100;
+    
+    const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+    };
+    
+    let r, g, b;
+    
+    if (s === 0) {
+        r = g = b = l; // achromatic
+    } else {
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+    }
+    
+    const toHex = (c) => {
+        const hex = Math.round(c * 255).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+    };
+    
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function generateSplitComplementaryColors(primaryColor) {
+    const hsl = hexToHsl(primaryColor);
+    if (!hsl) return { secondary: primaryColor, accent: primaryColor };
+    
+    // Split complementary: 30° and 195° from the primary color
+    const secondaryHue = (hsl.h + 30) % 360;
+    const accentHue = (hsl.h + 195) % 360;
+    
+    // Keep the same saturation and 50% lightness for consistent palettes
+    const secondary = hslToHex(secondaryHue, hsl.s, 50);
+    const accent = hslToHex(accentHue, hsl.s, 50);
+    
+    return { secondary, accent };
+}
+
+function setRandomColors() {
+    // Generate a random primary color
+    const primaryColor = generateRandomColor();
+    
+    // Generate harmonious secondary and accent colors using split complementary
+    const { secondary, accent } = generateSplitComplementaryColors(primaryColor);
+    
+    // Set the colors
+    document.getElementById('primary-color').value = primaryColor;
+    document.getElementById('secondary-color').value = secondary;
+    document.getElementById('accent-color').value = accent;
+}
+
 function hexToRgb(hex) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -71,17 +172,23 @@ function generateColorShades(baseColor, name) {
     const shades = {};
     const percentages = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
     
+    // Convert base color to HSL for better shade generation
+    const baseHsl = hexToHsl(baseColor);
+    if (!baseHsl) return { 500: baseColor };
+    
     percentages.forEach(percent => {
         if (percent === 500) {
-            shades[percent] = baseColor;
+            shades[percent] = baseColor; // Base color at 50% lightness
         } else if (percent < 500) {
-            // Lighter shades
-            const factor = (500 - percent) / 500;
-            shades[percent] = adjustBrightness(baseColor, factor * 100);
+            // Lighter shades: increase lightness
+            const lightnessIncrease = (500 - percent) * 0.1; // 0-45% increase
+            const newLightness = Math.min(95, baseHsl.l + lightnessIncrease);
+            shades[percent] = hslToHex(baseHsl.h, baseHsl.s, newLightness);
         } else {
-            // Darker shades
-            const factor = (percent - 500) / 500;
-            shades[percent] = adjustBrightness(baseColor, -factor * 100);
+            // Darker shades: decrease lightness
+            const lightnessDecrease = (percent - 500) * 0.1; // 0-40% decrease
+            const newLightness = Math.max(5, baseHsl.l - lightnessDecrease);
+            shades[percent] = hslToHex(baseHsl.h, baseHsl.s, newLightness);
         }
     });
     
@@ -117,7 +224,7 @@ function generateColorPalette() {
         colorGroup.className = 'color-group';
         colorGroup.style.marginBottom = '30px';
         
-        const colorTitle = document.createElement('h3');
+        const colorTitle = document.createElement('p');
         colorTitle.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
         colorTitle.style.marginBottom = '15px';
         colorTitle.style.color = '#333';

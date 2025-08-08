@@ -5,26 +5,22 @@
   "main": "index.html",
   "scripts": {
     "dev": "npx tailwindcss -i ./src/input.css -o ./styles.css --watch",
-    "build": "npx tailwindcss -i ./src/input.css -o ./styles.css --minify",
-    "init-shadcn": "npx shadcn@latest init"
+    "build": "npx tailwindcss -i ./src/input.css -o ./styles.css --minify"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32"
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0"
   },
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-select": "^2.0.0",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "@radix-ui/react-toast": "^1.1.5",
-    "@radix-ui/react-tooltip": "^1.0.7",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.294.0",
-    "tailwind-merge": "^2.0.0"
-  },
-  "keywords": ["design-system", "figma", "ui", "generator"],
+  "keywords": [
+    "design-system",
+    "figma",
+    "ui",
+    "generator"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
+  }
 }

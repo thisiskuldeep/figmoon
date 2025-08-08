@@ -7,23 +7,23 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-200 to-indigo-300">
     <div class="container mx-auto px-4 py-8 min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="text-center mb-10 text-white">
+        <header class="text-center mb-10 text-gray-800">
             <h1 class="text-4xl md:text-5xl font-bold mb-3 text-shadow-lg">Figmoon</h1>
             <p class="text-xl opacity-90 font-light">Design Systems made easy</p>
         </header>
 
         <!-- Navigation -->
         <nav class="flex justify-center gap-3 mb-8 flex-wrap">
-            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 active" data-section="colors">
+            <button class="nav-btn btn btn-outline text-gray-700 border-gray-300 bg-white/80 backdrop-blur-sm hover:bg-white active" data-section="colors">
                 Color Palette
             </button>
-            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20" data-section="typescale">
+            <button class="nav-btn btn btn-outline text-gray-700 border-gray-300 bg-white/80 backdrop-blur-sm hover:bg-white" data-section="typescale">
                 Type Scale
             </button>
-            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20" data-section="variables">
+            <button class="nav-btn btn btn-outline text-gray-700 border-gray-300 bg-white/80 backdrop-blur-sm hover:bg-white" data-section="variables">
                 Variables
             </button>
         </nav>
@@ -51,9 +51,14 @@
                             <input type="color" id="accent-color" value="#F59E0B" class="input h-12 w-full cursor-pointer">
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-lg w-full" onclick="generateColorPalette()">
-                        Generate Palette
-                    </button>
+                    <div class="flex gap-3">
+                        <button class="btn btn-secondary btn-lg flex-1" onclick="setRandomColors(); generateColorPalette();">
+                            🎲 Random Colors
+                        </button>
+                        <button class="btn btn-primary btn-lg flex-1" onclick="generateColorPalette()">
+                            Generate Palette
+                        </button>
+                    </div>
                 </div>
                 <div class="mt-8 bg-gray-50 rounded-xl p-8 min-h-[300px] border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 italic" id="color-preview">
                     <!-- Color swatches will be generated here -->
