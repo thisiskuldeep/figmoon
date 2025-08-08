@@ -1,225 +1,130 @@
-# 🎨 Figma Design System Generator
+# Figmoon - Design Systems made easy
 
-A modern web application for generating comprehensive design system components that can be exported to Figma as JSON files.
+A modern design system generator that creates comprehensive color palettes, type scales, and design variables for Figma. Built with Tailwind CSS and shadcn/ui-inspired components.
 
-## ✨ Features
+## Features
 
-### 🎨 Color Palette Generator
-- Generate color palettes from primary, secondary, and accent colors
-- Automatic shade generation (50-900) for each color
-- Built-in semantic colors (gray, success, warning, error)
-- Visual color swatches with hex values
-- Click to copy color values to clipboard
+- 🎨 **Color Palette Generator** - Create comprehensive color systems with primary, secondary, and semantic colors
+- 📝 **Type Scale Generator** - Generate consistent typography scales with various ratios and font families
+- 📏 **Variables Generator** - Create design tokens for spacing, border radius, and shadows
+- 📤 **Figma Export** - Export your design system as JSON for Figma
+- 🎯 **Modern UI** - Beautiful interface built with Tailwind CSS and shadcn/ui components
+- 📱 **Responsive Design** - Works perfectly on desktop and mobile devices
 
-### 📝 Type Scale Generator
-- Create consistent typography scales using mathematical ratios
-- Multiple scale options (Minor Second, Major Second, Golden Ratio, etc.)
-- Support for popular font families (Inter, Roboto, Open Sans, etc.)
-- Visual preview of type scales with actual font rendering
-- Configurable base font size
-
-### 🔧 Variables Generator
-- Generate spacing scales based on a base unit
-- Create border radius scales
-- Generate shadow scales with multiple levels
-- All variables follow consistent naming conventions
-
-### 📤 Export Functionality
-- Export complete design system as JSON
-- Preview generated JSON before download
-- Figma-compatible format
-- Includes metadata and versioning
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- No additional dependencies required
+
+- Node.js (v16 or higher)
+- npm or yarn
 
 ### Installation
-1. Clone or download this repository
-2. Open `index.html` in your web browser
-3. Start generating your design system!
 
-## 📖 How to Use
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd figmoon
+   ```
 
-### 1. Color Palette Generation
-1. Navigate to the "Color Palette" section
-2. Choose your primary, secondary, and accent colors using the color pickers
-3. Click "Generate Palette" to create the color system
-4. View the generated color swatches with their hex values
-5. Click on any color swatch to copy its hex value to clipboard
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### 2. Type Scale Generation
-1. Navigate to the "Type Scale" section
-2. Set your base font size (default: 16px)
-3. Choose a scale ratio (recommended: 1.250 for Major Third)
-4. Select your preferred font family
-5. Click "Generate Type Scale" to create the typography system
-6. Preview the actual font rendering for each size
+3. **Build the CSS**
+   ```bash
+   npm run build
+   ```
 
-### 3. Variables Generation
-1. Navigate to the "Variables" section
-2. Set your spacing base unit (default: 4px)
-3. Configure border radius base (default: 4px)
-4. Choose the number of shadow levels (default: 4)
-5. Click "Generate Variables" to create the variable system
-6. Review the generated spacing, border radius, and shadow scales
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-### 4. Export to Figma
-1. Generate all three sections (colors, typography, variables)
-2. Click "Export to Figma JSON" to download the complete design system
-3. Or click "Preview JSON" to review the generated data before downloading
-4. Import the JSON file into your Figma project
+5. **Open in your browser**
+   Navigate to `index.html` in your browser or use a local server.
 
-## 🎯 Design System Structure
+## Usage
 
-The generated JSON follows this structure:
+### Color Palette Generator
+1. Select your primary, secondary, and accent colors
+2. Click "Generate Palette" to create a comprehensive color system
+3. View the generated color swatches with hex values
+4. Click any color swatch to copy the hex value to clipboard
 
-```json
-{
-  "name": "Design System",
-  "description": "Generated design system for Figma",
-  "colors": {
-    "primary": { "50": "#...", "100": "#...", ... },
-    "secondary": { "50": "#...", "100": "#...", ... },
-    "accent": { "50": "#...", "100": "#...", ... },
-    "gray": { "50": "#...", "100": "#...", ... },
-    "success": { "50": "#...", "100": "#...", ... },
-    "warning": { "50": "#...", "100": "#...", ... },
-    "error": { "50": "#...", "100": "#...", ... }
-  },
-  "typography": {
-    "fontFamily": "Inter",
-    "typeScale": {
-      "xs": 12,
-      "sm": 14,
-      "base": 16,
-      "lg": 20,
-      "xl": 25,
-      "2xl": 31,
-      "3xl": 39,
-      "4xl": 49,
-      "5xl": 61
-    },
-    "weights": [300, 400, 500, 600, 700]
-  },
-  "variables": {
-    "spacing": { "0": 0, "1": 4, "2": 8, ... },
-    "borderRadius": { "none": 0, "sm": 2, "base": 4, ... },
-    "shadows": { "1": "0 2px 4px rgba(0, 0, 0, 0.1)", ... }
-  },
-  "metadata": {
-    "generatedAt": "2024-01-01T00:00:00.000Z",
-    "version": "1.0.0"
-  }
-}
-```
+### Type Scale Generator
+1. Set your base font size (default: 16px)
+2. Choose a scale ratio (Golden Ratio, Perfect Fourth, etc.)
+3. Select your font family (Inter, Fraunces, Roboto, etc.)
+4. Click "Generate Type Scale" to see the typography system
 
-## 🎨 Color System
+### Variables Generator
+1. Configure spacing base, border radius base, and shadow levels
+2. Click "Generate Variables" to create design tokens
+3. View the generated spacing, border radius, and shadow scales
 
-The color system generates 10 shades for each color:
-- **50-400**: Lighter shades
-- **500**: Base color
-- **600-900**: Darker shades
+### Export to Figma
+1. Generate your design system components
+2. Click "Export to Figma JSON" to download the JSON file
+3. Use "Preview JSON" to see the generated data structure
 
-### Semantic Colors
-- **Gray**: Neutral colors for text and backgrounds
-- **Success**: Green shades for positive actions
-- **Warning**: Yellow/Orange shades for caution states
-- **Error**: Red shades for error states
+## Tech Stack
 
-## 📝 Typography System
+- **HTML5** - Semantic markup
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern component library
+- **Vanilla JavaScript** - No framework dependencies
+- **Google Fonts** - Inter and Fraunces font families
 
-### Scale Ratios
-- **Minor Second (1.067)**: Subtle size differences
-- **Major Second (1.125)**: Balanced progression
-- **Minor Third (1.200)**: Clear hierarchy
-- **Major Third (1.250)**: Strong hierarchy
-- **Perfect Fourth (1.333)**: Musical scale
-- **Augmented Fourth (1.414)**: Geometric progression
-- **Perfect Fifth (1.500)**: Bold contrast
-- **Golden Ratio (1.618)**: Classic proportion
+## Project Structure
 
-### Font Weights
-- **300**: Light
-- **400**: Regular
-- **500**: Medium
-- **600**: Semi-bold
-- **700**: Bold
-
-## 🔧 Variable System
-
-### Spacing Scale
-Based on a base unit (default: 4px), generates:
-- 0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48px
-
-### Border Radius Scale
-Based on a base unit (default: 4px), generates:
-- none: 0px
-- sm: 2px
-- base: 4px
-- md: 6px
-- lg: 8px
-- xl: 12px
-- full: 9999px
-
-### Shadow Scale
-Generates multiple shadow levels with increasing intensity:
-- Level 1: Subtle shadow
-- Level 2: Medium shadow
-- Level 3: Strong shadow
-- Level 4: Very strong shadow
-
-## 🛠️ Technical Details
-
-### Built With
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with CSS Grid and Flexbox
-- **Vanilla JavaScript**: No frameworks, pure ES6+
-- **Google Fonts**: Inter font family
-
-### Browser Support
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
-
-### File Structure
 ```
 figmoon/
-├── index.html          # Main application file
-├── styles.css          # Application styles
-├── script.js           # Application logic
-└── README.md           # This file
+├── index.html          # Main application
+├── script.js           # JavaScript functionality
+├── styles.css          # Compiled Tailwind CSS
+├── src/
+│   └── input.css       # Tailwind input file
+├── tailwind.config.js  # Tailwind configuration
+├── package.json        # Dependencies and scripts
+└── README.md          # This file
 ```
 
-## 🤝 Contributing
+## Customization
+
+### Adding New Fonts
+1. Add the font to Google Fonts link in `index.html`
+2. Add the font option to the font family select dropdown
+3. The font will be available in the type scale generator
+
+### Modifying Design Tokens
+Edit the `tailwind.config.js` file to customize:
+- Color palette
+- Typography scales
+- Spacing values
+- Border radius values
+- Shadow definitions
+
+### Styling Components
+- Modify `src/input.css` for component styles
+- Use Tailwind utility classes in HTML
+- Add custom CSS variables for theming
+
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 License
+## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- Inspired by modern design system practices
-- Built for the Figma design community
-- Uses mathematical color theory for shade generation
-- Implements typographic scale principles
-
-## 📞 Support
-
-If you have any questions or need help, please:
-1. Check the documentation above
-2. Open an issue on GitHub
-3. Contact the maintainers
-
----
-
-**Happy designing! 🎨**
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) for the component design inspiration
+- [Google Fonts](https://fonts.google.com/) for the beautiful typography
+- [Figma](https://figma.com/) for the design system export format

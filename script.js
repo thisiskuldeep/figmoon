@@ -15,16 +15,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = button.getAttribute('data-section');
             
             // Update active nav button
-            navButtons.forEach(btn => btn.classList.remove('active'));
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('bg-white/25');
+                btn.classList.add('bg-white/10');
+            });
             button.classList.add('active');
+            button.classList.remove('bg-white/10');
+            button.classList.add('bg-white/25');
             
             // Show target section
             sections.forEach(section => {
+                section.classList.add('hidden');
                 section.classList.remove('active');
-                if (section.id === targetSection) {
-                    section.classList.add('active');
-                }
             });
+            const targetElement = document.getElementById(targetSection);
+            if (targetElement) {
+                targetElement.classList.remove('hidden');
+                targetElement.classList.add('active');
+            }
         });
     });
 
@@ -116,10 +125,17 @@ function generateColorPalette() {
         
         Object.entries(shades).forEach(([shade, color]) => {
             const swatch = document.createElement('div');
-            swatch.className = 'color-swatch';
+            swatch.className = 'inline-block w-20 h-20 rounded-lg m-2 relative cursor-pointer transition-transform hover:scale-110 shadow-lg';
             swatch.style.backgroundColor = color;
             swatch.setAttribute('data-color', `${colorName}-${shade}: ${color}`);
             swatch.title = `${colorName}-${shade}: ${color}`;
+            
+            // Add color value label
+            const label = document.createElement('div');
+            label.className = 'absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 whitespace-nowrap';
+            label.textContent = `${colorName}-${shade}`;
+            swatch.appendChild(label);
+            
             colorGroup.appendChild(swatch);
         });
         
@@ -159,17 +175,17 @@ function generateTypeScale() {
     // Create visual preview
     Object.entries(typeScale).forEach(([size, fontSize]) => {
         const typeItem = document.createElement('div');
-        typeItem.className = 'type-scale-item';
+        typeItem.className = 'mb-5 p-4 rounded-lg bg-white border-l-4 border-blue-500';
         
         const heading = document.createElement('h3');
         heading.textContent = `${size.toUpperCase()} - ${fontSize}px`;
         heading.style.fontSize = `${fontSize}px`;
         heading.style.fontFamily = fontFamily;
-        heading.style.fontWeight = '600';
-        heading.style.marginBottom = '5px';
+        heading.className = 'font-semibold mb-2 text-gray-900';
         
         const description = document.createElement('p');
         description.textContent = `Font size: ${fontSize}px | Line height: ${Math.round(fontSize * 1.5)}px`;
+        description.className = 'text-gray-600 text-sm';
         
         typeItem.appendChild(heading);
         typeItem.appendChild(description);
@@ -222,14 +238,14 @@ function generateVariables() {
     // Create visual preview
     const createVariableItem = (name, value) => {
         const item = document.createElement('div');
-        item.className = 'variable-item';
+        item.className = 'flex justify-between items-center p-4 mb-3 bg-white rounded-lg border border-gray-200';
         
         const nameSpan = document.createElement('span');
-        nameSpan.className = 'variable-name';
+        nameSpan.className = 'font-medium text-gray-900';
         nameSpan.textContent = name;
         
         const valueSpan = document.createElement('span');
-        valueSpan.className = 'variable-value';
+        valueSpan.className = 'text-blue-600 font-mono text-sm';
         valueSpan.textContent = typeof value === 'string' ? value : `${value}px`;
         
         item.appendChild(nameSpan);
@@ -240,8 +256,7 @@ function generateVariables() {
     // Spacing section
     const spacingTitle = document.createElement('h3');
     spacingTitle.textContent = 'Spacing Scale';
-    spacingTitle.style.marginBottom = '15px';
-    spacingTitle.style.color = '#333';
+    spacingTitle.className = 'text-lg font-semibold mb-4 text-gray-900';
     variablesPreview.appendChild(spacingTitle);
     
     Object.entries(spacing).forEach(([key, value]) => {
@@ -251,9 +266,7 @@ function generateVariables() {
     // Border radius section
     const borderRadiusTitle = document.createElement('h3');
     borderRadiusTitle.textContent = 'Border Radius Scale';
-    borderRadiusTitle.style.marginTop = '30px';
-    borderRadiusTitle.style.marginBottom = '15px';
-    borderRadiusTitle.style.color = '#333';
+    borderRadiusTitle.className = 'text-lg font-semibold mt-8 mb-4 text-gray-900';
     variablesPreview.appendChild(borderRadiusTitle);
     
     Object.entries(borderRadius).forEach(([key, value]) => {
@@ -263,9 +276,7 @@ function generateVariables() {
     // Shadows section
     const shadowsTitle = document.createElement('h3');
     shadowsTitle.textContent = 'Shadow Scale';
-    shadowsTitle.style.marginTop = '30px';
-    shadowsTitle.style.marginBottom = '15px';
-    shadowsTitle.style.color = '#333';
+    shadowsTitle.className = 'text-lg font-semibold mt-8 mb-4 text-gray-900';
     variablesPreview.appendChild(shadowsTitle);
     
     Object.entries(shadows).forEach(([key, value]) => {
@@ -321,7 +332,7 @@ function previewJSON() {
     jsonPreview.textContent = JSON.stringify(figmaData, null, 2);
     
     const modal = document.getElementById('json-modal');
-    modal.style.display = 'block';
+    modal.classList.remove('hidden');
 }
 
 // Download JSON from modal
@@ -346,7 +357,7 @@ function downloadJSON() {
 // Close modal
 function closeModal() {
     const modal = document.getElementById('json-modal');
-    modal.style.display = 'none';
+    modal.classList.add('hidden');
 }
 
 // Close modal when clicking outside
@@ -360,39 +371,23 @@ window.onclick = function(event) {
 // Notification system
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
+    notification.className = `fixed top-5 right-5 p-3 rounded-lg text-white font-medium z-50 transform translate-x-full transition-transform duration-300 ${
+        type === 'success' ? 'bg-green-500' : 
+        type === 'error' ? 'bg-red-500' : 
+        'bg-blue-500'
+    }`;
     notification.textContent = message;
-    
-    // Style the notification
-    notification.style.position = 'fixed';
-    notification.style.top = '20px';
-    notification.style.right = '20px';
-    notification.style.padding = '12px 20px';
-    notification.style.borderRadius = '8px';
-    notification.style.color = 'white';
-    notification.style.fontWeight = '500';
-    notification.style.zIndex = '10000';
-    notification.style.transform = 'translateX(100%)';
-    notification.style.transition = 'transform 0.3s ease';
-    
-    if (type === 'success') {
-        notification.style.backgroundColor = '#10B981';
-    } else if (type === 'error') {
-        notification.style.backgroundColor = '#EF4444';
-    } else {
-        notification.style.backgroundColor = '#667eea';
-    }
     
     document.body.appendChild(notification);
     
     // Animate in
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
+        notification.classList.remove('translate-x-full');
     }, 100);
     
     // Remove after 3 seconds
     setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
+        notification.classList.add('translate-x-full');
         setTimeout(() => {
             document.body.removeChild(notification);
         }, 300);

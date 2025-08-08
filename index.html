@@ -3,67 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figmoon - Figma Design System Generator</title>
+    <title>Figmoon - Design Systems made easy</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>🎨 Figma Design System Generator</h1>
-            <p>Create and export design system components for Figma</p>
+<body class="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
+    <div class="container mx-auto px-4 py-8 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="text-center mb-10 text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-3 text-shadow-lg">Figmoon</h1>
+            <p class="text-xl opacity-90 font-light">Design Systems made easy</p>
         </header>
 
-        <nav class="navigation">
-            <button class="nav-btn active" data-section="colors">Color Palette</button>
-            <button class="nav-btn" data-section="typescale">Type Scale</button>
-            <button class="nav-btn" data-section="variables">Variables</button>
+        <!-- Navigation -->
+        <nav class="flex justify-center gap-3 mb-8 flex-wrap">
+            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 active" data-section="colors">
+                Color Palette
+            </button>
+            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20" data-section="typescale">
+                Type Scale
+            </button>
+            <button class="nav-btn btn btn-outline text-white border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20" data-section="variables">
+                Variables
+            </button>
         </nav>
 
-        <main class="main-content">
+        <!-- Main Content -->
+        <main class="flex-1 bg-white rounded-2xl shadow-2xl overflow-hidden">
             <!-- Color Palette Section -->
-            <section id="colors" class="section active">
-                <div class="section-header">
-                    <h2>Color Palette Generator</h2>
-                    <p>Generate a comprehensive color palette with primary, secondary, and semantic colors</p>
+            <section id="colors" class="section active p-8 md:p-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-semibold mb-3 text-gray-900">Color Palette Generator</h2>
+                    <p class="text-gray-600 text-lg">Generate a comprehensive color palette with primary, secondary, and semantic colors</p>
                 </div>
-                <div class="section-content">
-                    <div class="color-controls">
-                        <div class="control-group">
-                            <label for="primary-color">Primary Color</label>
-                            <input type="color" id="primary-color" value="#3B82F6">
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label for="primary-color" class="block text-sm font-medium text-gray-700">Primary Color</label>
+                            <input type="color" id="primary-color" value="#3B82F6" class="input h-12 w-full cursor-pointer">
                         </div>
-                        <div class="control-group">
-                            <label for="secondary-color">Secondary Color</label>
-                            <input type="color" id="secondary-color" value="#10B981">
+                        <div class="space-y-2">
+                            <label for="secondary-color" class="block text-sm font-medium text-gray-700">Secondary Color</label>
+                            <input type="color" id="secondary-color" value="#10B981" class="input h-12 w-full cursor-pointer">
                         </div>
-                        <div class="control-group">
-                            <label for="accent-color">Accent Color</label>
-                            <input type="color" id="accent-color" value="#F59E0B">
+                        <div class="space-y-2">
+                            <label for="accent-color" class="block text-sm font-medium text-gray-700">Accent Color</label>
+                            <input type="color" id="accent-color" value="#F59E0B" class="input h-12 w-full cursor-pointer">
                         </div>
-                        <button class="generate-btn" onclick="generateColorPalette()">Generate Palette</button>
                     </div>
-                    <div class="color-preview" id="color-preview">
-                        <!-- Color swatches will be generated here -->
-                    </div>
+                    <button class="btn btn-primary btn-lg w-full" onclick="generateColorPalette()">
+                        Generate Palette
+                    </button>
+                </div>
+                <div class="mt-8 bg-gray-50 rounded-xl p-8 min-h-[300px] border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 italic" id="color-preview">
+                    <!-- Color swatches will be generated here -->
                 </div>
             </section>
 
             <!-- Type Scale Section -->
-            <section id="typescale" class="section">
-                <div class="section-header">
-                    <h2>Type Scale Generator</h2>
-                    <p>Create a consistent typography scale with different font sizes and weights</p>
+            <section id="typescale" class="section hidden p-8 md:p-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-semibold mb-3 text-gray-900">Type Scale Generator</h2>
+                    <p class="text-gray-600 text-lg">Create a consistent typography scale with different font sizes and weights</p>
                 </div>
-                <div class="section-content">
-                    <div class="type-controls">
-                        <div class="control-group">
-                            <label for="base-size">Base Font Size (px)</label>
-                            <input type="number" id="base-size" value="16" min="12" max="24">
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label for="base-size" class="block text-sm font-medium text-gray-700">Base Font Size (px)</label>
+                            <input type="number" id="base-size" value="16" min="12" max="24" class="input">
                         </div>
-                        <div class="control-group">
-                            <label for="scale-ratio">Scale Ratio</label>
-                            <select id="scale-ratio">
+                        <div class="space-y-2">
+                            <label for="scale-ratio" class="block text-sm font-medium text-gray-700">Scale Ratio</label>
+                            <select id="scale-ratio" class="input">
                                 <option value="1.067">Minor Second (1.067)</option>
                                 <option value="1.125">Major Second (1.125)</option>
                                 <option value="1.200">Minor Third (1.200)</option>
@@ -74,9 +85,9 @@
                                 <option value="1.618">Golden Ratio (1.618)</option>
                             </select>
                         </div>
-                        <div class="control-group">
-                            <label for="font-family">Font Family</label>
-                            <select id="font-family">
+                        <div class="space-y-2">
+                            <label for="font-family" class="block text-sm font-medium text-gray-700">Font Family</label>
+                            <select id="font-family" class="input">
                                 <option value="Inter">Inter</option>
                                 <option value="Fraunces">Fraunces</option>
                                 <option value="Roboto">Roboto</option>
@@ -85,62 +96,74 @@
                                 <option value="Poppins">Poppins</option>
                             </select>
                         </div>
-                        <button class="generate-btn" onclick="generateTypeScale()">Generate Type Scale</button>
                     </div>
-                    <div class="type-preview" id="type-preview">
-                        <!-- Type scale preview will be generated here -->
-                    </div>
+                    <button class="btn btn-primary btn-lg w-full" onclick="generateTypeScale()">
+                        Generate Type Scale
+                    </button>
+                </div>
+                <div class="mt-8 bg-gray-50 rounded-xl p-8 min-h-[300px] border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 italic" id="type-preview">
+                    <!-- Type scale preview will be generated here -->
                 </div>
             </section>
 
             <!-- Variables Section -->
-            <section id="variables" class="section">
-                <div class="section-header">
-                    <h2>Variables Generator</h2>
-                    <p>Generate design tokens and variables for consistent spacing, shadows, and more</p>
+            <section id="variables" class="section hidden p-8 md:p-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-semibold mb-3 text-gray-900">Variables Generator</h2>
+                    <p class="text-gray-600 text-lg">Generate design tokens and variables for consistent spacing, shadows, and more</p>
                 </div>
-                <div class="section-content">
-                    <div class="variables-controls">
-                        <div class="control-group">
-                            <label for="spacing-base">Spacing Base (px)</label>
-                            <input type="number" id="spacing-base" value="4" min="2" max="8">
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label for="spacing-base" class="block text-sm font-medium text-gray-700">Spacing Base (px)</label>
+                            <input type="number" id="spacing-base" value="4" min="2" max="8" class="input">
                         </div>
-                        <div class="control-group">
-                            <label for="border-radius-base">Border Radius Base (px)</label>
-                            <input type="number" id="border-radius-base" value="4" min="0" max="16">
+                        <div class="space-y-2">
+                            <label for="border-radius-base" class="block text-sm font-medium text-gray-700">Border Radius Base (px)</label>
+                            <input type="number" id="border-radius-base" value="4" min="0" max="16" class="input">
                         </div>
-                        <div class="control-group">
-                            <label for="shadow-levels">Shadow Levels</label>
-                            <input type="number" id="shadow-levels" value="4" min="1" max="8">
+                        <div class="space-y-2">
+                            <label for="shadow-levels" class="block text-sm font-medium text-gray-700">Shadow Levels</label>
+                            <input type="number" id="shadow-levels" value="4" min="1" max="8" class="input">
                         </div>
-                        <button class="generate-btn" onclick="generateVariables()">Generate Variables</button>
                     </div>
-                    <div class="variables-preview" id="variables-preview">
-                        <!-- Variables preview will be generated here -->
-                    </div>
+                    <button class="btn btn-primary btn-lg w-full" onclick="generateVariables()">
+                        Generate Variables
+                    </button>
+                </div>
+                <div class="mt-8 bg-gray-50 rounded-xl p-8 min-h-[300px] border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 italic" id="variables-preview">
+                    <!-- Variables preview will be generated here -->
                 </div>
             </section>
         </main>
 
-        <footer class="footer">
-            <button class="export-btn" onclick="exportToFigma()">Export to Figma JSON</button>
-            <button class="preview-btn" onclick="previewJSON()">Preview JSON</button>
+        <!-- Footer -->
+        <footer class="mt-8 flex gap-4 justify-center flex-wrap">
+            <button class="btn btn-success btn-lg" onclick="exportToFigma()">
+                Export to Figma JSON
+            </button>
+            <button class="btn btn-warning btn-lg" onclick="previewJSON()">
+                Preview JSON
+            </button>
         </footer>
     </div>
 
     <!-- Modal for JSON preview -->
-    <div id="json-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Generated JSON</h3>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <pre id="json-preview"></pre>
-            </div>
-            <div class="modal-footer">
-                <button onclick="downloadJSON()">Download JSON</button>
-                <button onclick="closeModal()">Close</button>
+    <div id="json-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="relative flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-900">Generated JSON</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                </div>
+                <div class="p-6 max-h-96 overflow-y-auto">
+                    <pre id="json-preview" class="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm font-mono"></pre>
+                </div>
+                <div class="flex gap-3 justify-end p-6 border-t border-gray-200">
+                    <button onclick="downloadJSON()" class="btn btn-primary">Download JSON</button>
+                    <button onclick="closeModal()" class="btn btn-secondary">Close</button>
+                </div>
             </div>
         </div>
     </div>
