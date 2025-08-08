@@ -187,7 +187,7 @@ Generates multiple shadow levels with increasing intensity:
 
 ### File Structure
 ```
-figma-design-system-generator/
+figmoon/
 ├── index.html          # Main application file
 ├── styles.css          # Application styles
 ├── script.js           # Application logic
