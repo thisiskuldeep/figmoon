@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Design System Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎨 Figma Design System Generator</h1>
+            <p>Create and export design system components for Figma</p>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-btn active" data-section="colors">Color Palette</button>
+            <button class="nav-btn" data-section="typescale">Type Scale</button>
+            <button class="nav-btn" data-section="variables">Variables</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Color Palette Section -->
+            <section id="colors" class="section active">
+                <div class="section-header">
+                    <h2>Color Palette Generator</h2>
+                    <p>Generate a comprehensive color palette with primary, secondary, and semantic colors</p>
+                </div>
+                <div class="section-content">
+                    <div class="color-controls">
+                        <div class="control-group">
+                            <label for="primary-color">Primary Color</label>
+                            <input type="color" id="primary-color" value="#3B82F6">
+                        </div>
+                        <div class="control-group">
+                            <label for="secondary-color">Secondary Color</label>
+                            <input type="color" id="secondary-color" value="#10B981">
+                        </div>
+                        <div class="control-group">
+                            <label for="accent-color">Accent Color</label>
+                            <input type="color" id="accent-color" value="#F59E0B">
+                        </div>
+                        <button class="generate-btn" onclick="generateColorPalette()">Generate Palette</button>
+                    </div>
+                    <div class="color-preview" id="color-preview">
+                        <!-- Color swatches will be generated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Type Scale Section -->
+            <section id="typescale" class="section">
+                <div class="section-header">
+                    <h2>Type Scale Generator</h2>
+                    <p>Create a consistent typography scale with different font sizes and weights</p>
+                </div>
+                <div class="section-content">
+                    <div class="type-controls">
+                        <div class="control-group">
+                            <label for="base-size">Base Font Size (px)</label>
+                            <input type="number" id="base-size" value="16" min="12" max="24">
+                        </div>
+                        <div class="control-group">
+                            <label for="scale-ratio">Scale Ratio</label>
+                            <select id="scale-ratio">
+                                <option value="1.067">Minor Second (1.067)</option>
+                                <option value="1.125">Major Second (1.125)</option>
+                                <option value="1.200">Minor Third (1.200)</option>
+                                <option value="1.250">Major Third (1.250)</option>
+                                <option value="1.333">Perfect Fourth (1.333)</option>
+                                <option value="1.414">Augmented Fourth (1.414)</option>
+                                <option value="1.500">Perfect Fifth (1.500)</option>
+                                <option value="1.618">Golden Ratio (1.618)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="font-family">Font Family</label>
+                            <select id="font-family">
+                                <option value="Inter">Inter</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Poppins">Poppins</option>
+                            </select>
+                        </div>
+                        <button class="generate-btn" onclick="generateTypeScale()">Generate Type Scale</button>
+                    </div>
+                    <div class="type-preview" id="type-preview">
+                        <!-- Type scale preview will be generated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Variables Section -->
+            <section id="variables" class="section">
+                <div class="section-header">
+                    <h2>Variables Generator</h2>
+                    <p>Generate design tokens and variables for consistent spacing, shadows, and more</p>
+                </div>
+                <div class="section-content">
+                    <div class="variables-controls">
+                        <div class="control-group">
+                            <label for="spacing-base">Spacing Base (px)</label>
+                            <input type="number" id="spacing-base" value="4" min="2" max="8">
+                        </div>
+                        <div class="control-group">
+                            <label for="border-radius-base">Border Radius Base (px)</label>
+                            <input type="number" id="border-radius-base" value="4" min="0" max="16">
+                        </div>
+                        <div class="control-group">
+                            <label for="shadow-levels">Shadow Levels</label>
+                            <input type="number" id="shadow-levels" value="4" min="1" max="8">
+                        </div>
+                        <button class="generate-btn" onclick="generateVariables()">Generate Variables</button>
+                    </div>
+                    <div class="variables-preview" id="variables-preview">
+                        <!-- Variables preview will be generated here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <button class="export-btn" onclick="exportToFigma()">Export to Figma JSON</button>
+            <button class="preview-btn" onclick="previewJSON()">Preview JSON</button>
+        </footer>
+    </div>
+
+    <!-- Modal for JSON preview -->
+    <div id="json-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Generated JSON</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <pre id="json-preview"></pre>
+            </div>
+            <div class="modal-footer">
+                <button onclick="downloadJSON()">Download JSON</button>
+                <button onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
